@@ -1,5 +1,5 @@
 # a (distance to object) | b (distance to image) | G' [mm]
-# Mesh 1 grobes Gitter
+# Mesh 1 large mesh
 66,684,24
-# Mesh 2 feines Gitter
+# Mesh 2 fine mesh
 63,687,12

@@ -1,7 +1,7 @@
 # d | a | b [mm]
 # Lens No. 1
-400,62,338 # vergrössert
-#400,330,70 verkleinert
-# Lens No. xx
-750,251,499 # vergrössert
-#750,480,270 verkleinert
+400,62,338 # enlarged
+400,330,70 # reduced
+# Lens No. 2
+750,251,499 # enlarged
+750,480,270 # reduced

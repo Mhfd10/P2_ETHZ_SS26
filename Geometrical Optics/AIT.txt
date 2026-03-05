@@ -1,7 +1,5 @@
 # a | b | d' [mm]
-# Mesh fein, Slitgrösse vergrössert
-#64,226,2
-#74,532,8
+# Mesh fine
 88,176,0.8
-# Mesh gross, Slitgrösse vergrössert
+# Mesh large
 64,226,2.5
