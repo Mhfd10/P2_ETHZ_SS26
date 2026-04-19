@@ -26,6 +26,7 @@ def single_gaussian_fit(x, y, uncertainties=None, p0=None, print=False):
 
         # plot
         plt.figure(figsize=(7,4))
+        plt.style.use('default')
         plt.scatter(x, y, s=10, label="Data", color="black")
 
         # plot the individual components

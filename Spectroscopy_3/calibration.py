@@ -25,17 +25,19 @@ def k_lambda_fit(He_values, k_values, k_uncertainties):
     lam_fit = b_fit * (k_fit - k0_fit)
     lam_pred = b_fit * (k_values - k0_fit)
 
-    # chi2-score
-    chi2 = np.sum(He_values - lam_pred) ** 2 / unumpy.std_devs(He_values ** 2)
-    chi2_reduced = chi2 / (len(He_values) - 2)
+    # RSME
+    residuals = He_values - lam_pred
+    rmse = np.sqrt(np.mean(residuals ** 2))
+
 
     plt.figure(figsize=(7.5,5))
+    plt.style.use('default')
     plt.errorbar(k_values, He_values, xerr=k_uncertainties*10, yerr=None, fmt='o', capsize=3, label='He spectral lines (uncertainty 10x scaled)')
     plt.plot(k_fit, lam_fit, '-', label='Linear regression')
 
     plt.xlabel('Rotation position k')
     plt.ylabel('Wavelength [nm]')
-    plt.title(f'Linear calibration fit wavelength in regards to k (χ²ᵣₑd = {chi2_reduced:.5f})')
+    plt.title(f'Linear calibration fit wavelength in regards to k (RMSE = {rmse:.4f} nm)')
     plt.legend()
     plt.tight_layout()
     plt.savefig('k_lambda_fit.png', dpi=600)
