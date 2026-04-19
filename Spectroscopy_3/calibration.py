@@ -1,11 +1,8 @@
-import os
 import numpy as np
 import matplotlib.pyplot as plt
-import cv2
 from uncertainties import ufloat
 from uncertainties import unumpy
 from uncertainties.umath import cos
-from scipy.optimize import curve_fit
 from scipy import odr
 
 # everything regarding calibration
