@@ -1,9 +1,9 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from uncertainties import ufloat
-from uncertainties import unumpy
 from uncertainties.umath import cos
 from scipy import odr
+from fits import single_gaussian_fit
 
 # everything regarding calibration
 
@@ -54,7 +54,10 @@ def p_k(B, k, lambda_0, p0, k0, b):
 
 # second calibration step
 # fit through the origin taking into account uncertainties in b and k0
-def fit_B_with_b_k0_uncertainties(k,p,p_uncertainty,b_u,k0_u,lambda0,p_central, B0=-12.0):
+def fit_B_with_b_k0_uncertainties(img_dic_p_k,fit_results_p_k,b_u,k0_u,lambda0,p_central, B0=-12.0):
+    k = k_measured_p = np.array([img_dic_p_k[name]['k_value'] for name in img_dic_p_k])
+    p = np.array([fit_results_p_k[name]["mu"] for name in img_dic_p_k])
+    p_uncertainty = np.abs([fit_results_p_k[name]["sigma"] for name in fit_results_p_k])
     y = p - p_central
 
     k_uncertainty = 1
@@ -75,8 +78,50 @@ def fit_B_with_b_k0_uncertainties(k,p,p_uncertainty,b_u,k0_u,lambda0,p_central, 
 
     B_fit = out.beta[0]
     B_err = out.sd_beta
+    B = ufloat(B_fit, B_err)
 
     y_hat = B_fit * x
-    r2 = 1 - np.sum((y - y_hat)**2) / np.sum((y - np.mean(y))**2)
 
-    return ufloat(B_fit, B_err), r2
+    # RSME
+    residuals = y - y_hat
+    rmse = np.sqrt(np.mean(residuals ** 2))
+
+    # plot fit
+    kmin, kmax = float(np.min(k_measured_p)), float(np.max(k_measured_p))
+    k_fit = np.linspace(kmin - 0.05 * (kmax - kmin), kmax + 0.05 * (kmax - kmin), 1000)
+    p_fit = p_k(B.n, k_fit, lambda0, p_central, k0, b)
+
+    plt.figure(figsize=(7.5, 5))
+    plt.errorbar(k_measured_p, p, xerr=1,
+                 yerr=np.abs([fit_results_p_k[name]["sigma"] * 10 for name in fit_results_p_k]), fmt='o', capsize=3,
+                 label='He line (uncertainty in pixelposition 10x scaled)')
+    plt.plot(k_fit, p_fit, '-', label=f'Linear Regression')
+    plt.xlabel('Rotation position k')
+    plt.ylabel('Pixel position')
+    plt.title(f'Linear calibration fit pixel position in regrades to k (RMSE = {rmse:.4f} nm)')
+    plt.legend()
+    plt.tight_layout()
+    plt.savefig('p_k_fit.png', dpi=600)
+    plt.show()
+
+    return B
+
+def fit_gaussian_intensity_profiles(img_dic):
+    fit_results = {}
+
+    for name in img_dic:
+        y = img_dic[name]["pixel_values"]
+        x = np.linspace(0, len(y), len(y))
+
+        # Gaussian fit
+        p_opt = single_gaussian_fit(x, y)
+        A, mu, sigma, C = p_opt
+
+        fit_results[name] = {
+            "A": A,
+            "mu": mu,
+            "sigma": sigma,
+            "C": C,
+        }
+
+    return fit_results
