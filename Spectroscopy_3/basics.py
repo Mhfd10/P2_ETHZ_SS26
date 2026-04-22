@@ -67,9 +67,6 @@ def convert_into_array(images):
         values = (values - np.min(values)) / (np.max(values) - np.min(values))
         values_raw = (values_raw - np.min(values_raw)) / (np.max(values_raw) - np.min(values_raw))
 
-        #if image == "calibration_2025-11-19T15-52-04.375": # adjust
-        #    plot_image_profiles(x,values, values_raw, "raw vs. filtered")
-
         raw_one_line.append(values_raw)
         images_one_line.append(values)
 

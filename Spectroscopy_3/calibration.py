@@ -125,3 +125,7 @@ def fit_gaussian_intensity_profiles(img_dic):
         }
 
     return fit_results
+
+# calibrated wavelength function
+def lambda_cal(b, k0, p0, B, k, p):
+    return b*((k-k0)+(p-p0)/B)
