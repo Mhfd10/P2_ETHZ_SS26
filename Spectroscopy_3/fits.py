@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from uncertainties import ufloat
-from uncertainties.umath import cos
+from uncertainties import correlated_values
 from scipy.optimize import curve_fit
 from scipy import odr
 
@@ -46,7 +46,7 @@ def polynomial(beta, theta):
     a, b, c, d, e = beta
     return a + b*theta + c*theta**2 + d*theta**3 + e*theta**4
 
-def linear_fit(x, y, sigma_x, sigma_y):
+def polynomial_fit(x, y, sigma_x=None, sigma_y=None):
     model = odr.Model(polynomial)
     data = odr.RealData(x, y, sx=sigma_x, sy=sigma_y)
     p0 = np.array([1, 1, 1, 1, 1])
@@ -62,3 +62,34 @@ def linear_fit(x, y, sigma_x, sigma_y):
     e = ufloat(e_fit, e_err)
 
     return a, b, c, d, e
+
+def polyfit_peak(x, y, print=False):
+    # fit
+    coeff, cov = np.polyfit(x, y, 2, cov=True)
+    a, b, c = coeff
+    sigma_a = np.sqrt(cov[0, 0])
+    sigma_b = np.sqrt(cov[1, 1])
+
+    # store coefficients in ufloat
+    a_u = ufloat(a, sigma_a)
+    b_u = ufloat(b, sigma_b)
+
+    # calculate peak of polynomial
+    x_max = -b_u / (2 * a_u)
+
+    y_hat = a*x**2 + b*x + c
+
+    if print == True:
+        plt.figure(figsize=(8, 5))
+        plt.style.use('default')
+        plt.plot(x, y, label="spectra")
+        plt.plot(x, y_hat, label="fit")
+        plt.xlabel("Pixel number")
+        plt.ylabel("Intensity (normalized)")
+        plt.axvline(x=x_max.n, color="red", linestyle="--")
+        plt.grid(True, linestyle="--", alpha=0.4)
+        plt.legend()
+        plt.tight_layout()
+        plt.show()
+
+    return x_max

@@ -1,7 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from uncertainties import ufloat
-from uncertainties.umath import cos
 from scipy import odr
 from fits import single_gaussian_fit
 
@@ -68,7 +67,7 @@ def fit_B_with_b_k0_uncertainties(img_dic_p_k,fit_results_p_k,b_u,k0_u,lambda0,p
     x = (lambda0 / b) - k + k0
 
     # gaussian error propagation
-    dx_db = (lambda0 / (b**2)) * b_uncertainty
+    dx_db = -(lambda0 / (b**2)) * b_uncertainty
     sx  = np.sqrt(dx_db**2 + k0_uncertainty**2 + k_uncertainty**2)
 
     # fit through origin
@@ -77,7 +76,7 @@ def fit_B_with_b_k0_uncertainties(img_dic_p_k,fit_results_p_k,b_u,k0_u,lambda0,p
     out   = odr.ODR(data, model, beta0=[B0]).run()
 
     B_fit = out.beta[0]
-    B_err = out.sd_beta
+    B_err = out.sd_beta[0]
     B = ufloat(B_fit, B_err)
 
     y_hat = B_fit * x
@@ -106,7 +105,7 @@ def fit_B_with_b_k0_uncertainties(img_dic_p_k,fit_results_p_k,b_u,k0_u,lambda0,p
 
     return B
 
-def fit_gaussian_intensity_profiles(img_dic):
+def fit_gaussian_intensity_profiles(img_dic, print=False):
     fit_results = {}
 
     for name in img_dic:
@@ -123,6 +122,22 @@ def fit_gaussian_intensity_profiles(img_dic):
             "sigma": sigma,
             "C": C,
         }
+
+        if print is True:
+            # plot
+            plt.figure(figsize=(7, 4))
+            plt.title(name)
+            plt.scatter(x, y, s=10, label="Data", color="black")
+
+            # plot the individual components
+            plt.plot(x, A * np.exp(-((x - mu) ** 2) / (2 * sigma ** 2)) + C, '--', color="blue",
+                     label=f"Peak 1: μ={mu:.2f} px")
+
+            plt.xlabel("Pixel position")
+            plt.ylabel("Normalized signal")
+            plt.legend()
+            plt.tight_layout()
+            plt.show()
 
     return fit_results
 

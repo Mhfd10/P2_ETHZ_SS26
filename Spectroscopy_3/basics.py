@@ -2,8 +2,6 @@ import os
 import numpy as np
 import matplotlib.pyplot as plt
 import cv2
-from uncertainties.umath import cos
-
 
 def plot_image_profiles(x,y, raw_data, title="Raw intensity profiles"):
     plt.figure(figsize=(8, 5))
@@ -38,8 +36,8 @@ def load_images(path):
 
 # This part takes for each image in the images array a horizontal bandwidth, takes the average  of said bandwidth and writes it into a new array
 def convert_into_array(images):
-    band_width = 50 # adjust
-    vline_height = 600 # adjust
+    band_width = 100 # adjust
+    vline_height = 540 # adjust
 
     images_one_line = []
     raw_one_line = []
