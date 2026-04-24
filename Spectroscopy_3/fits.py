@@ -52,8 +52,8 @@ def polynomial_fit(x, y, sigma_x=None, sigma_y=None):
     p0 = np.array([1, 1, 1, 1, 1])
     odr_run = odr.ODR(data, model, beta0=p0).run()
 
-    a_fit, b_fit, c_fit, d_fit, e_fit, f_fit = odr_run.beta
-    a_err, b_err, c_err, d_err, e_err, f_err = odr_run.sd_beta
+    a_fit, b_fit, c_fit, d_fit, e_fit = odr_run.beta
+    a_err, b_err, c_err, d_err, e_err = odr_run.sd_beta
 
     a = ufloat(a_fit, a_err)
     b = ufloat(b_fit, b_err)
