@@ -35,7 +35,7 @@ def load_images(path):
     return images
 
 # This part takes for each image in the images array a horizontal bandwidth, takes the average  of said bandwidth and writes it into a new array
-def convert_into_array(images):
+def convert_into_array(images, normalize=True):
     band_width = 100 # adjust
     vline_height = 540 # adjust
 
@@ -61,9 +61,10 @@ def convert_into_array(images):
         values = band.mean(axis=0)
         values_raw = band_raw.mean(axis=0)
 
-        # Normalize values to range [0, 1]
-        values = (values - np.min(values)) / (np.max(values) - np.min(values))
-        values_raw = (values_raw - np.min(values_raw)) / (np.max(values_raw) - np.min(values_raw))
+        if normalize == True:
+            # Normalize values to range [0, 1]
+            values = (values - np.min(values)) / (np.max(values) - np.min(values))
+            values_raw = (values_raw - np.min(values_raw)) / (np.max(values_raw) - np.min(values_raw))
 
         raw_one_line.append(values_raw)
         images_one_line.append(values)
