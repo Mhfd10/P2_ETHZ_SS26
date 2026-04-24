@@ -43,25 +43,23 @@ def single_gaussian_fit(x, y, uncertainties=None, p0=None, print=False):
     return popt
 
 def polynomial(beta, theta):
-    a, b, c, d, e = beta
-    return a + b*theta + c*theta**2 + d*theta**3 + e*theta**4
+    a, b, c = beta
+    return a + b*theta + c*theta**2
 
-def polynomial_fit(x, y, sigma_x=None, sigma_y=None):
+def polynomial_fit(x, y, sigma_x=None, sigma_y=None, p0=[1,1,1]):
     model = odr.Model(polynomial)
     data = odr.RealData(x, y, sx=sigma_x, sy=sigma_y)
-    p0 = np.array([1, 1, 1, 1, 1])
     odr_run = odr.ODR(data, model, beta0=p0).run()
 
-    a_fit, b_fit, c_fit, d_fit, e_fit = odr_run.beta
-    a_err, b_err, c_err, d_err, e_err = odr_run.sd_beta
+    a_fit, b_fit, c_fit = odr_run.beta
+    a_err, b_err, c_err = odr_run.sd_beta
 
     a = ufloat(a_fit, a_err)
     b = ufloat(b_fit, b_err)
     c = ufloat(c_fit, c_err)
-    d = ufloat(d_fit, d_err)
-    e = ufloat(e_fit, e_err)
+    print(a,b,c)
 
-    return a, b, c, d, e
+    return a, b, c
 
 def polyfit_peak(x, y, print=False):
     # fit
