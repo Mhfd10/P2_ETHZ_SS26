@@ -97,7 +97,7 @@ def fit_B_with_b_k0_uncertainties(img_dic_p_k,fit_results_p_k,b_u,k0_u,lambda0,p
     plt.plot(k_fit, p_fit, '-', label=f'Linear Regression')
     plt.xlabel('Rotation position k')
     plt.ylabel('Pixel position')
-    plt.title(f'Linear calibration fit pixel position in regrades to k (RMSE = {rmse:.4f} nm)')
+    plt.title(f'Linear calibration fit pixel position in regrades to k (RMSE = {rmse:.4f} px)')
     plt.legend()
     plt.tight_layout()
     plt.savefig('p_k_fit.png', dpi=600)

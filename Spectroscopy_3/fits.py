@@ -61,7 +61,7 @@ def polynomial_fit(x, y, sigma_x=None, sigma_y=None, p0=[1,1,1]):
 
     return a, b, c
 
-def polyfit_peak(x, y, print=False):
+def polyfit_peak(x, y, print=False, save=False):
     # fit
     coeff, cov = np.polyfit(x, y, 2, cov=True)
     a, b, c = coeff
@@ -88,6 +88,8 @@ def polyfit_peak(x, y, print=False):
         plt.grid(True, linestyle="--", alpha=0.4)
         plt.legend()
         plt.tight_layout()
+        if save == True:
+            plt.savefig(f'peak_fitting_{x_max.n}.png', dpi=600)
         plt.show()
 
     return x_max
