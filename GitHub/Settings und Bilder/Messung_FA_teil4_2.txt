@@ -1,0 +1,8 @@
+% Saved 2026-04-30 T 15:13:32 +0200
+Moku:Go Frequency Response Analyzer
+Measurement mode: In / Out (dB)
+Channel 1 (on), DC, 30 MHz, 1 MOhm, 10 Vpp, amplitude 100 mVpp (on), offset 0.000 0 V (off), phase 0.000 deg
+Channel 2 (off), DC, 30 MHz, 1 MOhm, 10 Vpp, amplitude 100 mVpp (on), offset 0.000 0 V (off), phase 0.000 deg
+Logarithmic sweep from 730.0000 Hz to 930.0000 Hz with 2,048 pts, dynamic amplitude mode off, measuring fundamental, delay compensation 935.0 ns (auto), normalization off
+Averaging time 1.00 us, 3 cycles; Settling time 10.0 us, 3 cycles
+

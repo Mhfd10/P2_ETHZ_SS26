@@ -1,0 +1,9 @@
+% Saved 2026-04-30 T 15:57:14 +0200
+Moku:Go Oscilloscope
+Channel A (Input 1, on), DC, 30 MHz, 1 MOhm, 10 Vpp, 1 x probe attenuation
+Channel B (Input 2, off), DC, 30 MHz, 1 MOhm, 10 Vpp, 1 x probe attenuation
+Time span 7.819 ms, time offset -7.124 ms, Normal acquisition mode, no averaging
+Edge trigger: Channel A, level 0.000 V, Auto mode, Rising edge, Auto sensitivity, noise reject off, HF reject off
+Output 1 (on) - Square, 900.000 000 Hz, 1.000 0 Vpp, offset 0.000 0 V, phase 0.000 000 deg, duty cycle 50.00 %
+Output 2 (off) - Square, 50.000 000 000 kHz, 500.0 mVpp, offset 0.000 0 V, phase 0.000 000 deg, duty cycle 50.00 %
+

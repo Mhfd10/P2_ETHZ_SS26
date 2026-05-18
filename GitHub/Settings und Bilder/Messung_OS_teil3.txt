@@ -1,0 +1,9 @@
+% Saved 2026-04-30 T 13:57:32 +0200
+Moku:Go Oscilloscope
+Channel A (on)
+Channel B (off)
+Time span 1.000 ms, time offset 0.000 s, Normal acquisition mode, no averaging
+Edge trigger: Channel A, level 0.000 V, Auto mode, Rising edge, Auto sensitivity, noise reject off, HF reject off
+Output A (off) - Sine, 10.000 000 000 000 MHz, 1.000 0 Vpp, offset 0.000 0 V, phase 0.000 000 deg
+Output B (off) - Square, 50.000 000 000 kHz, 500.0 mVpp, offset 0.000 0 V, phase 0.000 000 deg, duty cycle 50.00 %
+

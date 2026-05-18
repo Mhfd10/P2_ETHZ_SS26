@@ -1,0 +1,9 @@
+% Saved 2026-04-30 T 13:18:34 +0200
+Moku:Go Spectrum Analyzer
+Input 1 (on), AC, 30 MHz, 1 MOhm, 10 Vpp
+Input 2 (off), AC, 30 MHz, 1 MOhm, 10 Vpp
+Start freq 400 Hz, stop freq 600 Hz, RBW 977.5 mHz (Auto mode), Hann window, Video filter off
+Averaging: 1 spectra per frame, 10 frame averages
+Output 1 (on) - 500.000 000 Hz, 1.000 Vpp
+Output 2 (off) - 20.000 000 000 000 MHz, 1.000 Vpp
+
